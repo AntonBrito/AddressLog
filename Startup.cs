@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -8,6 +8,8 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.EntityFrameworkCore;
+using AddressLog.Data;
 
 namespace AddressLog
 {
@@ -24,6 +26,9 @@ namespace AddressLog
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+
+            services.AddDbContext<ContactBookContext>(options =>
+                    options.UseSqlite(Configuration.GetConnectionString("ContactBookContext")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
